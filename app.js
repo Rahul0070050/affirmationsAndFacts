@@ -51,7 +51,7 @@ whatsApp.addEventListener('click', () => {
     const a = document.createElement('a')
     a.setAttribute('href', `whatsapp://send?text=${fact}`)
     a.setAttribute('data-action', 'share/whatsapp/share')
-    a.setAttribute('target', '_blank')
+//    a.setAttribute('target', '_blank')
     a.click()
 })
 
