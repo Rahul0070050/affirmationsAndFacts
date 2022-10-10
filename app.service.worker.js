@@ -18,35 +18,35 @@ self.addEventListener("install", function (event) {
 self.addEventListener("activate", function (event) {
     console.log('service worker is activeted');
 })
-self.addEventListener("fetch",function (event) {
-    event.respondWith(caches.match(event.request).then(response => {
-        if(response) {
-            return response
-        } else {
-            return fetch(event.request)
-        }
-    }))
-})
-
-// self.addEventListener('fetch',function (event) {
-//     event.respondWith(
-//         caches.match(event.request).then(function (response)  {
-//             if(response) {
-//                 return response
-//             }
-//             return fetch(event.request).then(function (response) {
-//                 if(!response || response.status !== 200 || response.type !== "basic") {
-//                     return response
-//                 }
-
-//                 let responseToCatch = response.clone()
-
-//                 caches.open(CATCHE_NAME).then(function (cache) {
-//                     cache.put(event.request,responseToCatch)
-//                 })
-
-//                 return response
-//             })
-//         })
-//     )
+// self.addEventListener("fetch",function (event) {
+//    event.respondWith(caches.match(event.request).then(response => {
+//        if(response) {
+//            return response
+//        } else {
+//            return fetch(event.request)
+//        }
+//    }))
 // })
+
+ self.addEventListener('fetch',function (event) {
+     event.respondWith(
+         caches.match(event.request).then(function (response)  {
+             if(response) {
+                 return response
+             }
+             return fetch(event.request).then(function (response) {
+                 if(!response || response.status !== 200 || response.type !== "basic") {
+                     return response
+                 }
+
+                 let responseToCatch = response.clone()
+
+                 caches.open(CATCHE_NAME).then(function (cache) {
+                     cache.put(event.request,responseToCatch)
+                 })
+
+                 return response
+             })
+         })
+     )
+ })
